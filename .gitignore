@@ -28,6 +28,8 @@ bld/
 
 # Visual Studio 2015 cache/options directory
 .vs/
+.vscode/
+.idea/
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
 
@@ -612,8 +614,7 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 # End of https://www.toptal.com/developers/gitignore/api/rider,csharp,aspnetcore,dotnetcore
-API/appsettings.json
 API/votingapp.db
 API/votingapp.db-shm
 API/votingapp.db-wal
-client/ssl
+StudentAdminPanel/API/appsettings.json
