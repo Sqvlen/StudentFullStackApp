@@ -11,6 +11,5 @@ public class Student : BaseEntity
 
     public Guid GenderId { get; set; }
     public Gender Gender { get; set; }
-
     public Address Address { get; set; }
 }
