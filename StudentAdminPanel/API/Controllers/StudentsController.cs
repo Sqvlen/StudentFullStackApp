@@ -1,7 +1,9 @@
 ﻿using API.Dtos;
+using API.Helpers;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
+using Core.Specification;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,12 +21,17 @@ public class StudentsController : BaseApiController
     }
     
     [HttpGet]
-    public async Task<IReadOnlyList<StudentDto>> GetStudents()
+    public async Task<ActionResult<IReadOnlyList<StudentDto>>> GetStudents([FromQuery] StudentParams studentParams)
     {
-        var students = await _unitOfWork.Repository<Student>().ListAllAsync();
-
-        var studentsToReturn = _mapper.Map<IReadOnlyList<StudentDto>>(students);
+        var spec = new StudentWithSpecificationParams(studentParams);
+        var countSpec = new StudentWithFiltersForCountSpecification(studentParams);
+        var totalItems = await _unitOfWork.Repository<Student>().CountAsync(countSpec);
         
-        return studentsToReturn;
+        var students = await _unitOfWork.Repository<Student>().ListAsync(spec);
+
+        var data = _mapper
+            .Map<IReadOnlyList<Student>, IReadOnlyList<StudentDto>>(students);
+
+        return Ok(new Pagination<StudentDto>(studentParams.PageNumber, studentParams.PageSize, totalItems, data));
     }
 }

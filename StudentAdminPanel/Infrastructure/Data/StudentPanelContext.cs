@@ -13,4 +13,12 @@ public class StudentPanelContext : DbContext
     public DbSet<Student> Students { get; set; }
     public DbSet<Gender> Genders { get; set; }
     public DbSet<Address> Addresses { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // modelBuilder.Entity<Group>()
+        //     .HasMany(x => x.Students)
+        //     .WithOne(x => x.Group)
+        //     .HasForeignKey(x => x.GroupId);
+    }
 }
