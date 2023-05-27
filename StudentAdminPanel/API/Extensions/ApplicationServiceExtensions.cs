@@ -1,7 +1,7 @@
 ﻿using Core.Interfaces;
 using Infrastructure;
 using Infrastructure.Data;
-using Infrastructure.Repostories;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Extensions;
@@ -18,6 +18,8 @@ public static class ApplicationServiceExtensions
             });
         });
 
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
 
